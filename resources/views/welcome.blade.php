@@ -39,9 +39,10 @@
   </div>
 
 @foreach ($movies as $movie )
-  <div class="bg-blue-100 sm:grid grid-cols-2 gap-20 w-4/5 mx-auto py-20 border-b border-gray-200 mt-20">
+  <div class="bg-blue-100 sm:grid grid-cols-2 gap-20 w-4/5 mx-auto my-auto py-10 border-b border-gray-200 mt-20">
     <div>
-      <img src="https://cdn.pixabay.com/photo/2022/05/18/12/04/flower-7205105_960_720.jpg" width="700" alt="this is blog-img">
+      <img src="/movies/{{$movie->image}}" width="300" alt="this is blog-img">
+      {{-- <img src="/movies/{{$movie->image}}" height="100" width="100"> --}}
     </div>
     <div>
       <h2 class="text-gray-700 font-bold text-5xl pb-4 mt-0">
@@ -49,7 +50,7 @@
       {{-- Black Rose --}}
       </h2>
       <span class="text-gray-500">
-        By <span class="font-bold italic text-gray-800">{{Auth::guard('admin')->user()->name}}</span>, Created on:
+        {{-- By <span class="font-bold italic text-gray-800">{{Auth::guard('admin')->user()->name}}</span>, Created on: --}}
       </span>
       <div class="text-gray-600 font-bold italic mt-2">{{$movie->release_date}}</div>
       <p class="text-xl text-gray-700 pt-8 pb-10 leading-8 font-light">
@@ -61,7 +62,8 @@
         @else
         <a href=""{{route('dislike')}}><i class="fa fa-heart" aria-hidden="true"></i></a>
         @endif
-        @endforeach
+        @endforeach 
+        <span>Total Likes:{{$movies->like_count}}</span>
         &nbsp;&nbsp;
           <i class="far fa-bookmark fa-2x"></i>&nbsp;&nbsp;
       </span>
