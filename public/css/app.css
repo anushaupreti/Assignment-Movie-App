@@ -640,6 +640,9 @@ video {
 }.my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
+}.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
 }.ml-3 {
   margin-left: 0.75rem;
 }.-ml-px {
@@ -959,6 +962,9 @@ video {
 }.px-5 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
+}.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }.pt-8 {
   padding-top: 2rem;
 }.pt-1 {
