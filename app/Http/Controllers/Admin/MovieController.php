@@ -16,7 +16,7 @@ class MovieController extends Controller
     public function index()
     {
         $movies = Movie::get();
-        return view('admin.movie.index', compact('movies'));
+        return view('admin.dashboard', compact('movies'));
     }
 
     /**
@@ -44,7 +44,7 @@ class MovieController extends Controller
             'image' => 'required|mimes:jpg,png,jpeg|max:5048'
         ]);
         $newImageName = uniqid() . '-' . $request->title . '.' .
-            $request->image->extension();
+        $request->image->extension();
         $request->image->move(public_path('movies'), $newImageName);
         Movie::create([
             'title' => $request->input('title'),
@@ -76,7 +76,7 @@ class MovieController extends Controller
      */
     public function edit($id)
     {
-        return view('movie.edit')
+        return view('admin.movie.edit')
             ->with('movies', Movie::where('id', $id)->first());
     }
 
