@@ -18,8 +18,8 @@ class CreateMoviesTable extends Migration
             $table->string('title');
             $table->longText('description');
             $table->date('release_date');
-            $table->string('poster');
-            $table->integer('like_count');
+            $table->string('image');
+            $table->integer('like_count')->default(0);
             $table->enum('ispublish', ['published', 'unpublish']);
             $table->timestamps();
         });

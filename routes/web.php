@@ -23,8 +23,9 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     $likedislike = DB::table('likes_dislikes as ld')->join('movies as m', 'm.id', '=', 'ld.movie_id')->get();
-    // dd($likedislike);
-    return view('welcome')->with(['movies' => Movie::all(), 'likedislike' => $likedislike]);
+    // dd($likedislike); 
+    $movies = Movie::get();
+    return view('welcome')->with(['movies' =>$movies, 'likedislike' => $likedislike]);
 });
 // Route::get('/', 'App\Http\Controllers\Admin\MovieController@home')->name('welcome');
 Route::get('/dashboard', function () {
@@ -51,10 +52,10 @@ Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')-
     Route::post('logout', 'Auth\AuthenticatedSessionController@destroy')->name('logout');
 });
 
-Route::post('addtofav', 'FavouriteController@store')->name('addtofavourite');
-Route::post('removefromfav', 'FavouriteController@remove')->name('removefromfav');
+// Route::post('addtofav', 'FavouriteController@store')->name('addtofavourite');
+// Route::post('removefromfav', 'FavouriteController@remove')->name('removefromfav');
 
-Route::get('like/{movie_id}', 'LikeDislike@like')->name('like');
-Route::get('dislike', 'LikeDislike@dislike')->name('dislike');
+Route::get('like/{movie_id}', 'App\Http\Controllers\LikeDislike@like')->name('like');
+Route::get('dislike', 'App\Http\Controllers\LikeDislike@dislike')->name('dislike');
 // Route::get('admin/movies/index', 'App\Http\Controllers\Admin\MovieController@index')->name('index');
 // Route::get('admin/movies/create', 'App\Http\Controllers\Admin\MovieController@create')->name('create');

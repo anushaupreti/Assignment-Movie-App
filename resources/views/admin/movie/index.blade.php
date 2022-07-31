@@ -43,14 +43,14 @@
                                 <td>{{$movie->title}}</td>
                                 <td>{{$movie->description}}</td>
                                 <td>{{$movie->release_date}}</td>
-                                <td><img src="/img/hotel/{{$hotel->hotel_image}}" height="100" width="100"></td>
+                                <td><img src="/movies/{{$movie->image}}" height="100" width="100"></td>
                                 <td>
-                                    <a href="{{route('movie.edit',$movie->id)}}" class="btn btn-success">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    <a href="{{route('admin.movies.edit',$movie->id)}}" class="btn btn-success">
+                                        <i class="fa fa-pencil" aria-hidden="true">Edit</i>
                                     </a>
-                                    <a href="{{route('movie.delete',$movie
+                                    <a href="{{route('admin.movies.destroy',$movie
                                     ->id)}}" class="btn btn-danger">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        <i class="fa fa-trash" aria-hidden="true">Delete</i>
                                     </a>
                                 </td>
                             </tr>

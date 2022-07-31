@@ -16,84 +16,82 @@
 </head>
 <body class="bg-gray-100 h-screen antialiased leading-none font-sans">
     
-<div class="flex flex-col">
-    @if(Route::has('login'))
-        <div class="absolute top-0 right-0 mt-4 mr-4 space-x-4 sm:mt-6 sm:mr-6 sm:space-x-6">
-            @auth('admin')
-            <a href="{{ route('admin.dashboard')}}">Admin Dashboard</a>
-            @else
-            <a href="{{route('admin.login')}}" 
-            class="mo-underline hover:underline text-small font-normal text-teal-800 uppercase"
-            >Admin Login</a>
-            @endauth
-            @auth
-                <a href="{{ url('/home') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Home') }}</a>
-            @else
-                <a href="{{ route('login') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('user Login') }}</a>
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Register') }}</a>
-                @endif
-            @endauth
-        </div>
-    @endif
-</div>
+  <div class="flex flex-col">
+      @if(Route::has('login'))
+          <div class="absolute top-0 right-0 mt-4 mr-4 space-x-4 sm:mt-6 sm:mr-6 sm:space-x-6">
+              @auth('admin')
+              <a href="{{ route('admin.dashboard')}}">Admin Dashboard</a>
+              @else
+              <a href="{{route('admin.login')}}" 
+              class="mo-underline hover:underline text-small font-normal text-teal-800 uppercase"
+              >Admin Login</a>
+              @endauth
+              @auth
+                  <a href="{{ url('/home') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Home') }}</a>
+              @else
+                  <a href="{{ route('login') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('user Login') }}</a>
+                  @if (Route::has('register'))
+                      <a href="{{ route('register') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Register') }}</a>
+                  @endif
+              @endauth
+          </div>
+      @endif
+  </div>
 
 @foreach ($movies as $movie )
-<div class="bg-blue-100 sm:grid grid-cols-2 gap-20 w-4/5 mx-auto py-20 border-b border-gray-200 mt-20">
-  <div>
-    <img src="https://cdn.pixabay.com/photo/2022/05/18/12/04/flower-7205105_960_720.jpg" width="700" alt="this is blog-img">
-  </div>
-  <div>
-    <h2 class="text-gray-700 font-bold text-5xl pb-4 mt-0">
-      {{-- {{$post-> title}} --}}
-     Black Rose
-    </h2>
-    <span class="text-gray-500">
-      By <span class="font-bold italic text-gray-800">Admin</span>, Created on:
-    </span>
-    <div class="text-gray-600 font-bold italic mt-2">Release Date:2023 Jan 05</div>
-    <p class="text-xl text-gray-700 pt-8 pb-10 leading-8 font-light">
-     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus magnam eveniet eum tempore porro? Magnam expedita eius, aperiam incidunt sint harum nihil veritatis blanditiis nam nobis, non voluptate maiores quas.
-    </p>
-    <span>
-      @foreach($likedislike as $ld)
-      @if($ld->movie_id==$movie->id)
-      <a href="{{route('like',['movie_id'=>$movie->id])}}"><i class="fa fa-heart" aria-hidden="true"></i></a>
-      @else
-      <a href=""{{route('dislike')}}><i class="fa fa-heart" aria-hidden="true"></i></a>
-      @endif
-      @endforeach
-&nbsp;&nbsp;
-        <i class="far fa-bookmark fa-2x"></i>&nbsp;&nbsp;
-    </span>
-    
-    <a href="" class="uppercase bg-blue-500 text-gray-100 text-large text-extrabold py-4 px-8 rounded-3xl">
-      See More
-    </a>
-
-    {{-- @if (isset(Auth::user()->id)&& Auth::user()->id == $post->user_id) --}}
-    {{-- <span class="float-right">
-      
-      <span class="float-right">
-        <form action="" method="POST">
-        @csrf
-        @method('delete')
-        <button class="text-red-500 pr-3" type="submit"></button>
-      </form>
-
+  <div class="bg-blue-100 sm:grid grid-cols-2 gap-20 w-4/5 mx-auto py-20 border-b border-gray-200 mt-20">
+    <div>
+      <img src="https://cdn.pixabay.com/photo/2022/05/18/12/04/flower-7205105_960_720.jpg" width="700" alt="this is blog-img">
+    </div>
+    <div>
+      <h2 class="text-gray-700 font-bold text-5xl pb-4 mt-0">
+        {{$movie->title}}
+      {{-- Black Rose --}}
+      </h2>
+      <span class="text-gray-500">
+        By <span class="font-bold italic text-gray-800">{{Auth::guard('admin')->user()->name}}</span>, Created on:
       </span>
-    </span> --}}
-        
-    {{-- @endif --}}
-  </div>
-</div>
-@endforeach
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-{{-- <script>
-  $(function(){
-    console.log('hello');
-  });
-</script> --}}
+      <div class="text-gray-600 font-bold italic mt-2">{{$movie->release_date}}</div>
+      <p class="text-xl text-gray-700 pt-8 pb-10 leading-8 font-light">
+          {{$movie->description}}    </p>
+      <span>
+        @foreach($likedislike as $ld)
+        @if($ld->movie_id==$movie->id)
+        <a href="{{route('like',['movie_id'=>$movie->id])}}"><i class="far fa-heart 2xl" aria-hidden="true"></i></a>
+        @else
+        <a href=""{{route('dislike')}}><i class="fa fa-heart" aria-hidden="true"></i></a>
+        @endif
+        @endforeach
+        &nbsp;&nbsp;
+          <i class="far fa-bookmark fa-2x"></i>&nbsp;&nbsp;
+      </span>
+    
+      <a href="" class="uppercase bg-blue-500 text-gray-100 text-large text-extrabold py-4 px-8 rounded-3xl">
+        See More
+      </a>
 
+      {{-- @if (isset(Auth::user()->id)&& Auth::user()->id == $post->user_id) --}}
+      {{-- <span class="float-right">
+        
+        <span class="float-right">
+          <form action="" method="POST">
+          @csrf
+          @method('delete')
+          <button class="text-red-500 pr-3" type="submit"></button>
+        </form>
+
+        </span>
+      </span> --}}
+          
+      {{-- @endif --}}
+    </div>
+  </div>
+@endforeach
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  {{-- <script>
+    $(function(){
+      console.log('hello');
+    });
+  </script> --}}
 </body>
 </html>

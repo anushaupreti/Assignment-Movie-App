@@ -16,7 +16,7 @@ class CreateLikesDislikesTable extends Migration
         Schema::create('likes_dislikes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('movie_id')->references('id')->on('movies');
-            $table->foreignId('user_id')->references('id')->on('users');
+            // $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
