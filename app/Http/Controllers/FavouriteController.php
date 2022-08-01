@@ -38,11 +38,12 @@ class FavouriteController extends Controller
             'movie_id' => $request->movie_id,
             'user_id' => auth()->user()->id
         ]);
-        return response()->json(
-            [
-                'message' => 'success'
-            ]
-        );
+        // return response()->json(
+        //     [
+        //         'message' => 'success'
+        //     ]
+        // ); 
+        return redirect()->back()->with('success', 'Movie is added to favourite Sccessfully!');
     }
     public function remove(Request $request)
     {

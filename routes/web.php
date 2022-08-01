@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\LikeDislike;
+use App\Models\Favourite;
 use App\Models\LikesDislikes;
 use App\Models\Movie;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +30,8 @@ Route::get('/', function () {
 });
 // Route::get('/', 'App\Http\Controllers\Admin\MovieController@home')->name('welcome');
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $favourite = Favourite::get();
+    return view('dashboard')->with(['favourite' => $favourite]);
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
@@ -52,8 +54,8 @@ Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')-
     Route::post('logout', 'Auth\AuthenticatedSessionController@destroy')->name('logout');
 });
 
-// Route::post('addtofav', 'FavouriteController@store')->name('addtofavourite');
-// Route::post('removefromfav', 'FavouriteController@remove')->name('removefromfav');
+Route::get('addtofav', 'App\Http\Controllers\FavouriteController@store')->name('addtofav');
+Route::post('removefromfav', 'App\Http\Controllers\FavouriteController@remove')->name('removefromfav');
 
 Route::get('like/{movie_id}', 'App\Http\Controllers\LikeDislike@like')->name('like');
 Route::get('dislike', 'App\Http\Controllers\LikeDislike@dislike')->name('dislike');

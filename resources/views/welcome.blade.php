@@ -52,25 +52,30 @@
       <span class="text-gray-500">
         {{-- By <span class="font-bold italic text-gray-800">{{Auth::guard('admin')->user()->name}}</span>, Created on: --}}
       </span>
-      <div class="text-gray-600 font-bold italic mt-2">{{$movie->release_date}}</div>
+      <div class="text-gray-600 font-bold italic mt-2">Release Date: {{$movie->release_date}}</div>
       <p class="text-xl text-gray-700 pt-8 pb-10 leading-8 font-light">
           {{$movie->description}}    </p>
       <span>
         @foreach($likedislike as $ld)
         @if($ld->movie_id==$movie->id)
-        <a href="{{route('like',['movie_id'=>$movie->id])}}"><i class="far fa-heart 2xl" aria-hidden="true"></i></a>
+        <a href="{{route('like',['movie_id'=>$movie->id])}}"><i class="fas fa-heart 2xl" aria-hidden="true"></i></a>
         @else
-        <a href=""{{route('dislike')}}><i class="fa fa-heart" aria-hidden="true"></i></a>
+        <a href=""{{route('dislike')}}><i class="fas fa-heart" aria-hidden="true"></i></a>
         @endif
         @endforeach 
-        <span>Total Likes:{{$movies->like_count}}</span>
+        <span>Total Likes:{{$movie->like_count}}</span>
         &nbsp;&nbsp;
-          <i class="far fa-bookmark fa-2x"></i>&nbsp;&nbsp;
+        @if(Auth::check())
+          <a href="{{route('addtofav',['movie_id'=>$movie->id],['user_id'=>Auth::user()->id])}}"><i class="far fa-bookmark fa-2x"></i></a>&nbsp;&nbsp;
+        @else
+          <a href="{{route('login')}}"><i class="far fa-bookmark fa-2x"></i></a>&nbsp;&nbsp;
+        @endif
+
       </span>
     
-      <a href="" class="uppercase bg-blue-500 text-gray-100 text-large text-extrabold py-4 px-8 rounded-3xl">
+      {{-- <a href="" class="uppercase bg-blue-500 text-gray-100 text-large text-extrabold py-4 px-8 rounded-3xl">
         See More
-      </a>
+      </a> --}}
 
       {{-- @if (isset(Auth::user()->id)&& Auth::user()->id == $post->user_id) --}}
       {{-- <span class="float-right">
