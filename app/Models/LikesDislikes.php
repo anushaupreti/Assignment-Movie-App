@@ -8,5 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class LikesDislikes extends Model
 {
     use HasFactory;
+    // public function likes(){
+    //     return $this->hasMany
+    // }
     
 }
